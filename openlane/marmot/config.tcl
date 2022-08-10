@@ -57,7 +57,7 @@ set ::env(DECAP_CELL) {sky130_ef_sc_hd__decap_*  sky130_fd_sc_hd__decap_*}
 #set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 1000
 set ::env(FP_IO_VLENGTH) 1
 set ::env(FP_IO_HLENGTH) 1
-set ::env(ROUTING_CORES) 5
+set ::env(ROUTING_CORES) 4
 set ::env(GLB_RT_ALLOW_CONGESTION) 1
 #set ::env(GLB_RT_MAXLAYER) 5
 #set ::env(RT_MAX_LAYER) {met4}
@@ -112,7 +112,7 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/../../../openlane/marmot/macro.cfg
 source $script_dir/../../../openlane/marmot/macro_pdn.tcl
 
 ### Obstruction over SRAMs
-source $script_dir/../../../openlane/marmot/macro_obs.tcl
+#source $script_dir/../../../openlane/marmot/macro_obs.tcl
 
 # Pin order
 set ::env(FP_PIN_ORDER_CFG) $script_dir/../../../openlane/marmot/pin_order.cfg
