@@ -41,11 +41,11 @@ set ::env(SYNTH_FLAT_TOP) 1
 #set ::env(SYNTH_NO_FLAT) 1
 set ::env(CLOCK_TREE_SYNTH) 1
 set ::env(DESIGN_IS_CORE) 1
-set ::env(FP_PDN_CORE_RING) 0
+set ::env(FP_PDN_CORE_RING) 1
 set ::env(STA_REPORT_POWER) 0
 set ::env(SYNTH_USE_PG_PINS_DEFINES) "USE_POWER_PINS"
-set ::env(VDD_NETS) {vccd1 }
-set ::env(GND_NETS) {vssd1 }
+set ::env(VDD_NETS) {vccd1}
+set ::env(GND_NETS) {vssd1}
 set ::env(VDD_PIN) "vccd1"
 set ::env(GND_PIN) "vssd1"
 set ::env(PL_TARGET_DENSITY) 0.40
