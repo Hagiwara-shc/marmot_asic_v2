@@ -48,7 +48,7 @@ set ::env(VDD_NETS) {vccd1 }
 set ::env(GND_NETS) {vssd1 }
 set ::env(VDD_PIN) "vccd1"
 set ::env(GND_PIN) "vssd1"
-set ::env(PL_TARGET_DENSITY) 0.25
+set ::env(PL_TARGET_DENSITY) 0.40
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
 set ::env(DECAP_CELL) {sky130_ef_sc_hd__decap_*  sky130_fd_sc_hd__decap_*}
 #set ::env(FILL_CELL) {sky130_fd_sc_hd__fill_}
@@ -112,7 +112,7 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/../../../openlane/marmot/macro.cfg
 source $script_dir/../../../openlane/marmot/macro_pdn.tcl
 
 ### Obstruction over SRAMs
-#source $script_dir/../../../openlane/marmot/macro_obs.tcl
+source $script_dir/../../../openlane/marmot/macro_obs.tcl
 
 # Pin order
 set ::env(FP_PIN_ORDER_CFG) $script_dir/../../../openlane/marmot/pin_order.cfg
