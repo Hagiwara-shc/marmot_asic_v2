@@ -60,7 +60,7 @@ set ::env(FP_IO_HLENGTH) 1
 set ::env(ROUTING_CORES) 4
 set ::env(GLB_RT_ALLOW_CONGESTION) 1
 #set ::env(GLB_RT_MAXLAYER) 5
-#set ::env(RT_MAX_LAYER) {met4}
+set ::env(RT_MAX_LAYER) {met4}
 set ::env(FP_PDN_CHECK_NODES) 0
 set ::env(RUN_KLAYOUT_XOR) 0
 set ::env(KLAYOUT_XOR_GDS) 0

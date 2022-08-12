@@ -18,8 +18,14 @@
 module Marmot
 (
 `ifdef USE_POWER_PINS
-    inout vccd1,	// User area 1 1.8V supply
-    inout vssd1,	// User area 1 digital ground
+    inout vdda1,  // User area 1 3.3V supply
+    inout vdda2,  // User area 2 3.3V supply
+    inout vssa1,  // User area 1 analog ground
+    inout vssa2,  // User area 2 analog ground
+    inout vccd1,  // User area 1 1.8V supply
+    inout vccd2,  // User area 2 1.8v supply
+    inout vssd1,  // User area 1 digital ground
+    inout vssd2,  // User area 2 digital ground
 `endif
 
     // Wishbone Slave ports (WB MI A)
@@ -44,122 +50,20 @@ module Marmot
     output [`MPRJ_IO_PADS-1:0] io_out,
     output [`MPRJ_IO_PADS-1:0] io_oeb,
 
-    // IRQ
-    output [2:0] irq
+    // Analog (direct connection to GPIO pad---use with caution)
+    // Note that analog I/O is not available on the 7 lowest-numbered
+    // GPIO pads, and so the analog_io indexing is offset from the
+    // GPIO indexing by 7 (also upper 2 GPIOs do not have analog_io).
+    inout [`MPRJ_IO_PADS-10:0] analog_io,
 
-`ifdef RAM_ON_TOP
-    // RAM clock delay select
-    output [31:0] ram_clk_delay_sel,
+    // Independent clock (on independent integer divider)
+    input   user_clock2,
 
-    // DTIM RAM I/F
-//  output        data_arrays_0_ext_ram_clk,
-//  output [7:0]  data_arrays_0_ext_ram_csb,
-//  output        data_arrays_0_ext_ram_web,
-//  output [8:0]  data_arrays_0_ext_ram_addr,
-//  output [31:0] data_arrays_0_ext_ram_wdata,
-//  output [3:0]  data_arrays_0_ext_ram_wmask,
-//  input  [31:0] data_arrays_0_ext_ram_rdata0,
-//  input  [31:0] data_arrays_0_ext_ram_rdata1,
-//  input  [31:0] data_arrays_0_ext_ram_rdata2,
-//  input  [31:0] data_arrays_0_ext_ram_rdata3,
-//  input  [31:0] data_arrays_0_ext_ram_rdata4,
-//  input  [31:0] data_arrays_0_ext_ram_rdata5,
-//  input  [31:0] data_arrays_0_ext_ram_rdata6,
-//  input  [31:0] data_arrays_0_ext_ram_rdata7,
-//  output [7:0]  data_arrays_0_ext_ram_csb1,
-//  output [8:0]  data_arrays_0_ext_ram_addr1,
-
-    // I-Cache Tag RAM I/F
-    output        tag_array_ext_ram_clk,
-    output        tag_array_ext_ram_csb,
-    output        tag_array_ext_ram_web,
-    output [7:0]  tag_array_ext_ram_addr,
-    output [63:0] tag_array_ext_ram_wdata,
-    output [1:0]  tag_array_ext_ram_wmask,
-    input  [31:0] tag_array_ext_ram_rdata0,
-    input  [31:0] tag_array_ext_ram_rdata1,
-    output        tag_array_ext_ram_csb1,
-    output [7:0]  tag_array_ext_ram_addr1,
-
-    // I-Cache Data RAM I/F
-    output        data_arrays_0_0_ext_ram_clk,
-    output [3:0]  data_arrays_0_0_ext_ram_csb,
-    output        data_arrays_0_0_ext_ram_web0,
-    output        data_arrays_0_0_ext_ram_web1,
-    output        data_arrays_0_0_ext_ram_web2,
-    output        data_arrays_0_0_ext_ram_web3,
-    output [8:0]  data_arrays_0_0_ext_ram_addr00,
-    output [8:0]  data_arrays_0_0_ext_ram_addr01,
-    output [8:0]  data_arrays_0_0_ext_ram_addr02,
-    output [8:0]  data_arrays_0_0_ext_ram_addr03,
-    output [63:0] data_arrays_0_0_ext_ram_wdata0,
-    output [63:0] data_arrays_0_0_ext_ram_wdata1,
-    output [63:0] data_arrays_0_0_ext_ram_wdata2,
-    output [63:0] data_arrays_0_0_ext_ram_wdata3,
-    output [1:0]  data_arrays_0_0_ext_ram_wmask0,
-    output [1:0]  data_arrays_0_0_ext_ram_wmask1,
-    output [1:0]  data_arrays_0_0_ext_ram_wmask2,
-    output [1:0]  data_arrays_0_0_ext_ram_wmask3,
-    input  [63:0] data_arrays_0_0_ext_ram_rdata0,
-    input  [63:0] data_arrays_0_0_ext_ram_rdata1,
-    input  [63:0] data_arrays_0_0_ext_ram_rdata2,
-    input  [63:0] data_arrays_0_0_ext_ram_rdata3,
-    output [3:0]  data_arrays_0_0_ext_ram_csb1,
-    output [8:0]  data_arrays_0_0_ext_ram_addr10,
-    output [8:0]  data_arrays_0_0_ext_ram_addr11,
-    output [8:0]  data_arrays_0_0_ext_ram_addr12,
-    output [8:0]  data_arrays_0_0_ext_ram_addr13
-`endif  // RAM_ON_TOP
+    // User maskable interrupt signals
+    output [2:0] user_irq
 );
 
 `ifndef MARMOT_EMPTY
-`ifdef RAM_ON_TOP
-    //------------------------------------------------------------------------------
-    // DTIM RAM signals
-    wire        data_arrays_0_ext_RW0_clk;
-    wire        data_arrays_0_ext_RW0_en;
-    wire        data_arrays_0_ext_RW0_wmode;
-    wire [11:0] data_arrays_0_ext_RW0_addr;
-    wire [31:0] data_arrays_0_ext_RW0_wdata;
-    wire [3:0]  data_arrays_0_ext_RW0_wmask;
-    wire [31:0] data_arrays_0_ext_RW0_rdata;
-    wire        data_arrays_0_ext_ram_clk;
-    wire [7:0]  data_arrays_0_ext_ram_csb;
-    wire        data_arrays_0_ext_ram_web;
-    wire [8:0]  data_arrays_0_ext_ram_addr;
-    wire [31:0] data_arrays_0_ext_ram_wdata;
-    wire [3:0]  data_arrays_0_ext_ram_wmask;
-    wire [7:0]  data_arrays_0_ext_ram_csb1;
-    wire [8:0]  data_arrays_0_ext_ram_addr1;
-    wire [31:0] data_arrays_0_ext_ram_rdata0 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata1 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata2 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata3 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata4 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata5 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata6 = 32'd0;
-    wire [31:0] data_arrays_0_ext_ram_rdata7 = 32'd0;
-
-    // I-Cache Tag RAM signals
-    wire        tag_array_ext_RW0_clk;
-    wire        tag_array_ext_RW0_en;
-    wire        tag_array_ext_RW0_wmode;
-    wire [6:0]  tag_array_ext_RW0_addr;
-    wire [39:0] tag_array_ext_RW0_wdata;
-    wire [1:0]  tag_array_ext_RW0_wmask;
-    wire [39:0] tag_array_ext_RW0_rdata;
-
-    // I-Cache Data RAM signals
-    wire        data_arrays_0_0_ext_ram_web;
-    wire        data_arrays_0_0_ext_RW0_clk;
-    wire        data_arrays_0_0_ext_RW0_en;
-    wire        data_arrays_0_0_ext_RW0_wmode;
-    wire [10:0] data_arrays_0_0_ext_RW0_addr;
-    wire [63:0] data_arrays_0_0_ext_RW0_wdata;
-    wire [1:0]  data_arrays_0_0_ext_RW0_wmask;
-    wire [63:0] data_arrays_0_0_ext_RW0_rdata;
-`endif  // RAM_ON_TOP
-
     //------------------------------------------------------------------------------
     // Clock and Reset to MarmotCaravelChip
     wire clk;
@@ -205,17 +109,13 @@ module Marmot
     //            [ 31: 0] <- gpio_out[31:0]
     assign la_data_out[127:32] = 96'd0;
 
-    wire [127:0] la_data_input; // [127:64] -> not in use
-                                // [ 63:32] -> RAM clock delay select
+    wire [127:0] la_data_input; // [127:32] -> not in use
                                 // [ 31: 0] -> gpio_in[31:0]
     assign la_data_input = ~la_oenb & la_data_in;
-`ifdef RAM_ON_TOP
-    assign ram_clk_delay_sel = la_data_input[63:32];
-`endif
 
     //------------------------------------------------------------------------------
     // IRQ
-    assign irq = 3'b000;
+    assign user_irq = 3'b000;
 
     //------------------------------------------------------------------------------
     // MarmotCaravelChip
@@ -400,121 +300,7 @@ module Marmot
      .gpio_in_29(la_data_input[29]),
      .gpio_in_30(la_data_input[30]),
      .gpio_in_31(la_data_input[31])
-`ifdef RAM_ON_TOP
-     .data_arrays_0_ext_RW0_addr(data_arrays_0_ext_RW0_addr),
-     .data_arrays_0_ext_RW0_en(data_arrays_0_ext_RW0_en),
-     .data_arrays_0_ext_RW0_clk(data_arrays_0_ext_RW0_clk),
-     .data_arrays_0_ext_RW0_wmode(data_arrays_0_ext_RW0_wmode),
-     .data_arrays_0_ext_RW0_wdata(data_arrays_0_ext_RW0_wdata),
-     .data_arrays_0_ext_RW0_rdata(data_arrays_0_ext_RW0_rdata),
-     .data_arrays_0_ext_RW0_wmask(data_arrays_0_ext_RW0_wmask),
-     .tag_array_ext_RW0_addr(tag_array_ext_RW0_addr),
-     .tag_array_ext_RW0_en(tag_array_ext_RW0_en),
-     .tag_array_ext_RW0_clk(tag_array_ext_RW0_clk),
-     .tag_array_ext_RW0_wmode(tag_array_ext_RW0_wmode),
-     .tag_array_ext_RW0_wdata(tag_array_ext_RW0_wdata),
-     .tag_array_ext_RW0_rdata(tag_array_ext_RW0_rdata),
-     .tag_array_ext_RW0_wmask(tag_array_ext_RW0_wmask),
-     .data_arrays_0_0_ext_RW0_addr(data_arrays_0_0_ext_RW0_addr),
-     .data_arrays_0_0_ext_RW0_en(data_arrays_0_0_ext_RW0_en),
-     .data_arrays_0_0_ext_RW0_clk(data_arrays_0_0_ext_RW0_clk),
-     .data_arrays_0_0_ext_RW0_wmode(data_arrays_0_0_ext_RW0_wmode),
-     .data_arrays_0_0_ext_RW0_wdata(data_arrays_0_0_ext_RW0_wdata),
-     .data_arrays_0_0_ext_RW0_rdata(data_arrays_0_0_ext_RW0_rdata),
-     .data_arrays_0_0_ext_RW0_wmask(data_arrays_0_0_ext_RW0_wmask)
-`endif  // RAM_ON_TOP
     );
-
-`ifdef RAM_ON_TOP
-    // DTIM RAM interfaces
-    data_arrays_0_ext data_arrays_0_ext (
-      .RW0_addr(data_arrays_0_ext_RW0_addr),
-      .RW0_en(data_arrays_0_ext_RW0_en),
-      .RW0_clk(data_arrays_0_ext_RW0_clk),
-      .RW0_wmode(data_arrays_0_ext_RW0_wmode),
-      .RW0_wdata(data_arrays_0_ext_RW0_wdata),
-      .RW0_rdata(data_arrays_0_ext_RW0_rdata),
-      .RW0_wmask(data_arrays_0_ext_RW0_wmask),
-      .ram_csb(data_arrays_0_ext_ram_csb),
-      .ram_web(data_arrays_0_ext_ram_web),
-      .ram_rdata0(data_arrays_0_ext_ram_rdata0),
-      .ram_rdata1(data_arrays_0_ext_ram_rdata1),
-      .ram_rdata2(data_arrays_0_ext_ram_rdata2),
-      .ram_rdata3(data_arrays_0_ext_ram_rdata3),
-      .ram_rdata4(data_arrays_0_ext_ram_rdata4),
-      .ram_rdata5(data_arrays_0_ext_ram_rdata5),
-      .ram_rdata6(data_arrays_0_ext_ram_rdata6),
-      .ram_rdata7(data_arrays_0_ext_ram_rdata7)
-    );
-
-    assign data_arrays_0_ext_ram_addr  = data_arrays_0_ext_RW0_addr[8:0];
-    assign data_arrays_0_ext_ram_clk   = data_arrays_0_ext_RW0_clk;
-    assign data_arrays_0_ext_ram_wdata = data_arrays_0_ext_RW0_wdata;
-    assign data_arrays_0_ext_ram_wmask = data_arrays_0_ext_RW0_wmask;
-    assign data_arrays_0_ext_ram_csb1  = 8'hff;
-    assign data_arrays_0_ext_ram_addr1 = 9'h000;
-
-    // I-Cache Tag RAM interfaces
-    tag_array_ext tag_array_ext (
-      .RW0_addr(tag_array_ext_RW0_addr),
-      .RW0_en(tag_array_ext_RW0_en),
-      .RW0_clk(tag_array_ext_RW0_clk),
-      .RW0_wmode(tag_array_ext_RW0_wmode),
-      .RW0_wdata(tag_array_ext_RW0_wdata),
-      .RW0_rdata(tag_array_ext_RW0_rdata),
-      .RW0_wmask(tag_array_ext_RW0_wmask),
-      .ram_csb(tag_array_ext_ram_csb),
-      .ram_web(tag_array_ext_ram_web),
-      .ram_rdata0(tag_array_ext_ram_rdata0),
-      .ram_rdata1(tag_array_ext_ram_rdata1)
-    );
-
-    assign tag_array_ext_ram_clk   = tag_array_ext_RW0_clk;
-    assign tag_array_ext_ram_addr  = {1'b0, tag_array_ext_RW0_addr};
-    assign tag_array_ext_ram_wdata = {12'd0, tag_array_ext_RW0_wdata[39:20], 12'd0, tag_array_ext_RW0_wdata[19:0]};
-    assign tag_array_ext_ram_wmask = tag_array_ext_RW0_wmask;
-    assign tag_array_ext_ram_csb1  = 1'b1;
-    assign tag_array_ext_ram_addr1 = 8'h00;
-
-    // I-Cache Data RAM interfaces
-    data_arrays_0_0_ext data_arrays_0_0_ext (
-      .RW0_addr(data_arrays_0_0_ext_RW0_addr),
-      .RW0_en(data_arrays_0_0_ext_RW0_en),
-      .RW0_clk(data_arrays_0_0_ext_RW0_clk),
-      .RW0_wmode(data_arrays_0_0_ext_RW0_wmode),
-      .RW0_wdata(data_arrays_0_0_ext_RW0_wdata),
-      .RW0_rdata(data_arrays_0_0_ext_RW0_rdata),
-      .RW0_wmask(data_arrays_0_0_ext_RW0_wmask),
-      .ram_csb(data_arrays_0_0_ext_ram_csb),
-      .ram_web(data_arrays_0_0_ext_ram_web),
-      .ram_rdata0(data_arrays_0_0_ext_ram_rdata0),
-      .ram_rdata1(data_arrays_0_0_ext_ram_rdata1),
-      .ram_rdata2(data_arrays_0_0_ext_ram_rdata2),
-      .ram_rdata3(data_arrays_0_0_ext_ram_rdata3)
-    );
-
-    assign data_arrays_0_0_ext_ram_clk   = data_arrays_0_0_ext_RW0_clk;
-    assign data_arrays_0_0_ext_ram_web0  = data_arrays_0_0_ext_ram_web;
-    assign data_arrays_0_0_ext_ram_web1  = data_arrays_0_0_ext_ram_web;
-    assign data_arrays_0_0_ext_ram_web2  = data_arrays_0_0_ext_ram_web;
-    assign data_arrays_0_0_ext_ram_web3  = data_arrays_0_0_ext_ram_web;
-    assign data_arrays_0_0_ext_ram_addr00= data_arrays_0_0_ext_RW0_addr[8:0];
-    assign data_arrays_0_0_ext_ram_addr01= data_arrays_0_0_ext_RW0_addr[8:0];
-    assign data_arrays_0_0_ext_ram_addr02= data_arrays_0_0_ext_RW0_addr[8:0];
-    assign data_arrays_0_0_ext_ram_addr03= data_arrays_0_0_ext_RW0_addr[8:0];
-    assign data_arrays_0_0_ext_ram_wdata0= data_arrays_0_0_ext_RW0_wdata;
-    assign data_arrays_0_0_ext_ram_wdata1= data_arrays_0_0_ext_RW0_wdata;
-    assign data_arrays_0_0_ext_ram_wdata2= data_arrays_0_0_ext_RW0_wdata;
-    assign data_arrays_0_0_ext_ram_wdata3= data_arrays_0_0_ext_RW0_wdata;
-    assign data_arrays_0_0_ext_ram_wmask0= data_arrays_0_0_ext_RW0_wmask;
-    assign data_arrays_0_0_ext_ram_wmask1= data_arrays_0_0_ext_RW0_wmask;
-    assign data_arrays_0_0_ext_ram_wmask2= data_arrays_0_0_ext_RW0_wmask;
-    assign data_arrays_0_0_ext_ram_wmask3= data_arrays_0_0_ext_RW0_wmask;
-    assign data_arrays_0_0_ext_ram_csb1  = 4'hf;
-    assign data_arrays_0_0_ext_ram_addr10= 9'h000;
-    assign data_arrays_0_0_ext_ram_addr11= 9'h000;
-    assign data_arrays_0_0_ext_ram_addr12= 9'h000;
-    assign data_arrays_0_0_ext_ram_addr13= 9'h000;
-`endif  // RAM_ON_TOP
 `endif  // MARMOT_EMPTY
+
 endmodule
