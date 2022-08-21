@@ -1,5 +1,34 @@
++define+PRINTF_COND=1
++define+RANDOMIZE_MEM_INIT
++define+RANDOMIZE_REG_INIT
++define+RANDOMIZE_DELAY=1
++define+UART_HIGH_SPEED
++define+WAVEFORM
++define+RAM_ON_TOP
+
 # Caravel user project includes
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
 
++incdir+$(USER_PROJECT_VERILOG)/rtl/marmot_no_sram
+-v $(USER_PROJECT_VERILOG)/rtl/marmot_no_sram/Marmot.v
+-v $(USER_PROJECT_VERILOG)/rtl/marmot_no_sram/shc.marmotcaravel.MarmotCaravelChip.MarmotCaravelConfig.top.no_sram.v
+-v $(USER_PROJECT_VERILOG)/rtl/marmot_no_sram/shc.marmotcaravel.MarmotCaravelChip.MarmotCaravelConfig.top.mems.sky130.no_sram.v
+-v $(USER_PROJECT_VERILOG)/rtl/marmot_no_sram/SRLatch.v
+-v $(USER_PROJECT_VERILOG)/rtl/marmot_no_sram/plusarg_reader.v
  
+#-v $(USER_PROJECT_VERILOG)/lib/clk_skew_adjust.gv
+#-v $(USER_PROJECT_VERILOG)/lib/ctech_cells.sv
+-v $(USER_PROJECT_VERILOG)/lib/sky130_sram_1kbyte_1rw1r_32x256_8.v
+#-v $(USER_PROJECT_VERILOG)/lib/sky130_sram_2kbyte_1rw1r_32x512_8.v
+
+// SPI Flash model
++define+SPEEDSIM
+-v $(USER_PROJECT_VERILOG)/dv/vip/MX25U3235F.v
+
+// SPI RAM model (protected, Questa is needed)
+//-v $(USER_PROJECT_VERILOG)/dv/vip/APM_APS6404L-3SQN_SQPI_PSRAM_model_v2.9_encrypt.vp_modelsim
+
+// UART model
++incdir+$(USER_PROJECT_VERILOG)/dv/vip/uart
+-v $(USER_PROJECT_VERILOG)/dv/vip/uart/uart_tb.v
+
