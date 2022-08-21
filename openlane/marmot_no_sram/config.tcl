@@ -32,15 +32,16 @@ set ::env(CLOCK_PERIOD) "40"
 set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 1059 2096"
 
+set ::env(CELL_PAD) 1
 #set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
-set ::env(DIODE_INSERTION_STRATEGY) 5
+set ::env(DIODE_INSERTION_STRATEGY) 3
 
 set ::env(MAGIC_WRITE_FULL_LEF) 0
 
 set ::env(SYNTH_FLAT_TOP) 1
 #set ::env(SYNTH_NO_FLAT) 1
 set ::env(CLOCK_TREE_SYNTH) 1
-set ::env(DESIGN_IS_CORE) 1
+set ::env(DESIGN_IS_CORE) 0
 set ::env(FP_PDN_CORE_RING) 0
 set ::env(STA_REPORT_POWER) 0
 set ::env(SYNTH_USE_PG_PINS_DEFINES) "USE_POWER_PINS"
@@ -48,7 +49,7 @@ set ::env(VDD_NETS) {vccd1}
 set ::env(GND_NETS) {vssd1}
 set ::env(VDD_PIN) "vccd1"
 set ::env(GND_PIN) "vssd1"
-set ::env(PL_TARGET_DENSITY) 0.55
+set ::env(PL_TARGET_DENSITY) 0.39
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
 set ::env(DECAP_CELL) {sky130_ef_sc_hd__decap_*  sky130_fd_sc_hd__decap_*}
 #set ::env(FILL_CELL) {sky130_fd_sc_hd__fill_}
@@ -78,12 +79,12 @@ set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 set ::env(VERILOG_INCLUDE_DIRS) [glob $script_dir/../../../verilog/rtl/marmot_no_sram]
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	[glob $script_dir/../../../verilog/rtl/marmot_no_sram/*.v]"
+	[glob $script_dir/../../../verilog/rtl/marmot_no_sram_gl/*.v]"
 
 ## SDC
 set ::env(IO_PCT)     0.2
 set ::env(IO_PCT_RAM) 0.3
-set ::env(BASE_SDC_FILE) $script_dir/../../../openlane/marmot_no_sram/base.sdc
+#set ::env(BASE_SDC_FILE) $script_dir/../../../openlane/marmot_no_sram/base.sdc
 
 
 ## Internal Macros

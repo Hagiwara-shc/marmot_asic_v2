@@ -23,9 +23,15 @@ create_generated_clock -name data_arrays_0_0_ext_ram_clk -add \
   -source [get_ports wb_clk_i] -master_clock [get_clocks wb_clk_i] -divide_by 1 \
   -comment {I-Cache Data RAM clk} [get_ports data_arrays_0_0_ext_ram_clk[*]]
 
+# For RTL
+#create_generated_clock -name slow_clock -add \
+#  -source [get_ports wb_clk_i] -master_clock [get_clocks wb_clk_i] -divide_by 4 \
+#  -comment {AON clk} [get_nets \MarmotCaravelChip.clockToggleReg ]
+
+# For gate
 create_generated_clock -name slow_clock -add \
   -source [get_ports wb_clk_i] -master_clock [get_clocks wb_clk_i] -divide_by 4 \
-  -comment {AON clk} [get_nets \MarmotCaravelChip.clockToggleReg ]
+  -comment {AON clk} [get_nets \MarmotCaravelChip.dut_sys_aon_1_io_rtc ]
 
 create_clock [get_ports $TCK_port] -name jtag_TCK -period 100.0
 
@@ -86,45 +92,45 @@ set all_inputs_wo_clk [lreplace $all_inputs_wo_clk $clk_indx $clk_indx]
 set_input_delay  $input_delay_value  -clock [get_clocks wb_clk_i] $all_inputs_wo_clk
 set_output_delay $output_delay_value -clock [get_clocks wb_clk_i] [all_outputs]
 
-# D-Cache Tag RAM port
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_csb0]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_web0]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_wmask0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_addr0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_din0[*]]
-set_input_delay  $input_delay_value_ram  -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_dout0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_csb1]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_addr1[*]]
-
-# D-Cache Data RAM port
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_csb0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_web0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_wmask0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_addr0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_din0*[*]]
-set_input_delay  $input_delay_value_ram  -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_dout0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_csb1[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_addr1*[*]]
-
-# I-Cache Tag RAM port
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_csb0]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_web0]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_wmask0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_addr0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_din0[*]]
-set_input_delay  $input_delay_value_ram  -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_dout0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_csb1]
-set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_addr1[*]]
-
-# I-Cache Data RAM port
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_csb0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_web0[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_wmask0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_addr0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_din0*[*]]
-set_input_delay  $input_delay_value_ram  -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_dout0*[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_csb1[*]]
-set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_addr1*[*]]
+## D-Cache Tag RAM port
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_csb0]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_web0]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_wmask0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_addr0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_din0[*]]
+#set_input_delay  $input_delay_value_ram  -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_dout0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_csb1]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_ext_ram_clk] [get_ports tag_array_ext_ram_addr1[*]]
+#
+## D-Cache Data RAM port
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_csb0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_web0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_wmask0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_addr0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_din0*[*]]
+#set_input_delay  $input_delay_value_ram  -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_dout0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_csb1[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_ext_ram_clk] [get_ports data_arrays_0_ext_ram_addr1*[*]]
+#
+## I-Cache Tag RAM port
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_csb0]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_web0]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_wmask0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_addr0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_din0[*]]
+#set_input_delay  $input_delay_value_ram  -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_dout0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_csb1]
+#set_output_delay $output_delay_value_ram -clock [get_clocks tag_array_0_ext_ram_clk] [get_ports tag_array_0_ext_ram_addr1[*]]
+#
+## I-Cache Data RAM port
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_csb0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_web0[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_wmask0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_addr0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_din0*[*]]
+#set_input_delay  $input_delay_value_ram  -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_dout0*[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_csb1[*]]
+#set_output_delay $output_delay_value_ram -clock [get_clocks data_arrays_0_0_ext_ram_clk] [get_ports data_arrays_0_0_ext_ram_addr1*[*]]
 
 # JTAG port
 set_input_delay  $input_delay_value  -clock [get_clocks jtag_TCK] [get_ports $TMS_port]
