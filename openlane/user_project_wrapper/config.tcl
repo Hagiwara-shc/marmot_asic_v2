@@ -58,10 +58,11 @@ set ::env(CLOCK_PERIOD) "40"
 #set ::env(BASE_SDC_FILE) $script_dir/base.sdc
 
 ### PDN
-#set ::env(PDN_CFG) $script_dir/pdn_cfg.tcl
-#set ::env(VDD_PIN) {vccd1}
-#set ::env(GND_PIN) {vssd1}
-#set ::env(FP_PDN_HPITCH) 153.18
+set ::env(PDN_CFG) $script_dir/pdn_cfg.tcl
+set ::env(VDD_PIN) {vccd1}
+set ::env(GND_PIN) {vssd1}
+set ::env(FP_PDN_HPITCH) 180
+set ::env(FP_PDN_HOFFSET) 15
 
 ## Internal Macros
 ### Macro PDN Connections
@@ -77,7 +78,7 @@ set ::env(VERILOG_FILES_BLACKBOX) "\
   $script_dir/../../verilog/rtl/marmot/Marmot.v"
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/Marmot.lef"
+	$script_dir/../../lef/Marmot_del_met5.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
 	$script_dir/../../gds/Marmot.gds"
