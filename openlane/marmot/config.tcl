@@ -117,3 +117,5 @@ source $script_dir/../../../openlane/marmot/macro_obs.tcl
 # Pin order
 set ::env(FP_PIN_ORDER_CFG) $script_dir/../../../openlane/marmot/pin_order.cfg
 
+set ::env(CELL_PAD) 4
+

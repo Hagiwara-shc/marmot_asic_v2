@@ -62,7 +62,7 @@ set ::env(PDN_CFG) $script_dir/pdn_cfg.tcl
 set ::env(VDD_PIN) {vccd1}
 set ::env(GND_PIN) {vssd1}
 set ::env(FP_PDN_HPITCH) 180
-set ::env(FP_PDN_HOFFSET) 15
+set ::env(FP_PDN_HOFFSET) 17
 
 ## Internal Macros
 ### Macro PDN Connections
@@ -107,4 +107,6 @@ set ::env(DIODE_INSERTION_STRATEGY) 0
 set ::env(FILL_INSERTION) 0
 set ::env(TAP_DECAP_INSERTION) 0
 set ::env(CLOCK_TREE_SYNTH) 0
+
+set ::env(CELL_PAD) 4
 

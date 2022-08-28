@@ -61,6 +61,70 @@ module Marmot
 
     // User maskable interrupt signals
     output [2:0] user_irq
+
+`ifdef RAM_ON_TOP
+    // RAM signals
+    // D-Cache tag
+  , output        tag_array_ext_ram_clk,
+    output        tag_array_ext_ram_csb0,
+    output        tag_array_ext_ram_web0,
+    output [3:0]  tag_array_ext_ram_wmask0,
+    output [7:0]  tag_array_ext_ram_addr0,
+    output [31:0] tag_array_ext_ram_din0,
+    input  [31:0] tag_array_ext_ram_dout0,
+    output        tag_array_ext_ram_csb1,
+    output [7:0]  tag_array_ext_ram_addr1,
+    // D-Cache data
+    output [1:0]  data_arrays_0_ext_ram_clk,
+    output [1:0]  data_arrays_0_ext_ram_csb0,
+    output [1:0]  data_arrays_0_ext_ram_web0,
+    output [3:0]  data_arrays_0_ext_ram_wmask00,
+    output [3:0]  data_arrays_0_ext_ram_wmask01,
+    output [8:0]  data_arrays_0_ext_ram_addr00,
+    output [8:0]  data_arrays_0_ext_ram_addr01,
+    output [31:0] data_arrays_0_ext_ram_din00,
+    output [31:0] data_arrays_0_ext_ram_din01,
+    input  [31:0] data_arrays_0_ext_ram_dout00,
+    input  [31:0] data_arrays_0_ext_ram_dout01,
+    output [1:0]  data_arrays_0_ext_ram_csb1,
+    output [8:0]  data_arrays_0_ext_ram_addr10,
+    output [8:0]  data_arrays_0_ext_ram_addr11,
+    // I-Cache tag
+    output        tag_array_0_ext_ram_clk,
+    output        tag_array_0_ext_ram_csb0,
+    output        tag_array_0_ext_ram_web0,
+    output [7:0]  tag_array_0_ext_ram_wmask0,
+    output [7:0]  tag_array_0_ext_ram_addr0,
+    output [63:0] tag_array_0_ext_ram_din0,
+    input  [63:0] tag_array_0_ext_ram_dout0,
+    output        tag_array_0_ext_ram_csb1,
+    output [7:0]  tag_array_0_ext_ram_addr1,
+    // I-Cache data
+    output [3:0]  data_arrays_0_0_ext_ram_clk,
+    output [3:0]  data_arrays_0_0_ext_ram_csb0,
+    output [3:0]  data_arrays_0_0_ext_ram_web0,
+    output [7:0]  data_arrays_0_0_ext_ram_wmask00,
+    output [7:0]  data_arrays_0_0_ext_ram_wmask01,
+    output [7:0]  data_arrays_0_0_ext_ram_wmask02,
+    output [7:0]  data_arrays_0_0_ext_ram_wmask03,
+    output [8:0]  data_arrays_0_0_ext_ram_addr00,
+    output [8:0]  data_arrays_0_0_ext_ram_addr01,
+    output [8:0]  data_arrays_0_0_ext_ram_addr02,
+    output [8:0]  data_arrays_0_0_ext_ram_addr03,
+    output [63:0] data_arrays_0_0_ext_ram_din00,
+    output [63:0] data_arrays_0_0_ext_ram_din01,
+    output [63:0] data_arrays_0_0_ext_ram_din02,
+    output [63:0] data_arrays_0_0_ext_ram_din03,
+    input  [63:0] data_arrays_0_0_ext_ram_dout00,
+    input  [63:0] data_arrays_0_0_ext_ram_dout01,
+    input  [63:0] data_arrays_0_0_ext_ram_dout02,
+    input  [63:0] data_arrays_0_0_ext_ram_dout03,
+    output [3:0]  data_arrays_0_0_ext_ram_csb1,
+    output [8:0]  data_arrays_0_0_ext_ram_addr10,
+    output [8:0]  data_arrays_0_0_ext_ram_addr11,
+    output [8:0]  data_arrays_0_0_ext_ram_addr12,
+    output [8:0]  data_arrays_0_0_ext_ram_addr13
+`endif  // RAM_ON_TOP
 );
 
 `ifndef MARMOT_EMPTY
@@ -119,6 +183,36 @@ module Marmot
 
     //------------------------------------------------------------------------------
     // MarmotCaravelChip
+`ifdef RAM_ON_TOP
+    wire [5:0]  tag_array_ext_RW0_addr;
+    wire        tag_array_ext_RW0_en;
+    wire        tag_array_ext_RW0_clk;
+    wire        tag_array_ext_RW0_wmode;
+    wire [20:0] tag_array_ext_RW0_wdata;
+    wire [20:0] tag_array_ext_RW0_rdata;
+    wire [9:0]  data_arrays_0_ext_RW0_addr;
+    wire        data_arrays_0_ext_RW0_en;
+    wire        data_arrays_0_ext_RW0_clk;
+    wire        data_arrays_0_ext_RW0_wmode;
+    wire [31:0] data_arrays_0_ext_RW0_wdata;
+    wire [31:0] data_arrays_0_ext_RW0_rdata;
+    wire [3:0]  data_arrays_0_ext_RW0_wmask;
+    wire [6:0]  tag_array_0_ext_RW0_addr;
+    wire        tag_array_0_ext_RW0_en;
+    wire        tag_array_0_ext_RW0_clk;
+    wire        tag_array_0_ext_RW0_wmode;
+    wire [37:0] tag_array_0_ext_RW0_wdata;
+    wire [37:0] tag_array_0_ext_RW0_rdata;
+    wire [1:0]  tag_array_0_ext_RW0_wmask;
+    wire [10:0] data_arrays_0_0_ext_RW0_addr;
+    wire        data_arrays_0_0_ext_RW0_en;
+    wire        data_arrays_0_0_ext_RW0_clk;
+    wire        data_arrays_0_0_ext_RW0_wmode;
+    wire [63:0] data_arrays_0_0_ext_RW0_wdata;
+    wire [63:0] data_arrays_0_0_ext_RW0_rdata;
+    wire [1:0]  data_arrays_0_0_ext_RW0_wmask;
+`endif  // RAM_ON_TOP
+
     MarmotCaravelChip MarmotCaravelChip (
      .clk(clk),
      .rst_n(rst_n),
@@ -300,7 +394,139 @@ module Marmot
      .gpio_in_29(la_data_input[29]),
      .gpio_in_30(la_data_input[30]),
      .gpio_in_31(la_data_input[31])
+`ifdef RAM_ON_TOP
+   , .tag_array_ext_RW0_addr(tag_array_ext_RW0_addr),
+     .tag_array_ext_RW0_en(tag_array_ext_RW0_en),
+     .tag_array_ext_RW0_clk(tag_array_ext_RW0_clk),
+     .tag_array_ext_RW0_wmode(tag_array_ext_RW0_wmode),
+     .tag_array_ext_RW0_wdata(tag_array_ext_RW0_wdata),
+     .tag_array_ext_RW0_rdata(tag_array_ext_RW0_rdata),
+     .data_arrays_0_ext_RW0_addr(data_arrays_0_ext_RW0_addr),
+     .data_arrays_0_ext_RW0_en(data_arrays_0_ext_RW0_en),
+     .data_arrays_0_ext_RW0_clk(data_arrays_0_ext_RW0_clk),
+     .data_arrays_0_ext_RW0_wmode(data_arrays_0_ext_RW0_wmode),
+     .data_arrays_0_ext_RW0_wdata(data_arrays_0_ext_RW0_wdata),
+     .data_arrays_0_ext_RW0_rdata(data_arrays_0_ext_RW0_rdata),
+     .data_arrays_0_ext_RW0_wmask(data_arrays_0_ext_RW0_wmask),
+     .tag_array_0_ext_RW0_addr(tag_array_0_ext_RW0_addr),
+     .tag_array_0_ext_RW0_en(tag_array_0_ext_RW0_en),
+     .tag_array_0_ext_RW0_clk(tag_array_0_ext_RW0_clk),
+     .tag_array_0_ext_RW0_wmode(tag_array_0_ext_RW0_wmode),
+     .tag_array_0_ext_RW0_wdata(tag_array_0_ext_RW0_wdata),
+     .tag_array_0_ext_RW0_rdata(tag_array_0_ext_RW0_rdata),
+     .tag_array_0_ext_RW0_wmask(tag_array_0_ext_RW0_wmask),
+     .data_arrays_0_0_ext_RW0_addr(data_arrays_0_0_ext_RW0_addr),
+     .data_arrays_0_0_ext_RW0_en(data_arrays_0_0_ext_RW0_en),
+     .data_arrays_0_0_ext_RW0_clk(data_arrays_0_0_ext_RW0_clk),
+     .data_arrays_0_0_ext_RW0_wmode(data_arrays_0_0_ext_RW0_wmode),
+     .data_arrays_0_0_ext_RW0_wdata(data_arrays_0_0_ext_RW0_wdata),
+     .data_arrays_0_0_ext_RW0_rdata(data_arrays_0_0_ext_RW0_rdata),
+     .data_arrays_0_0_ext_RW0_wmask(data_arrays_0_0_ext_RW0_wmask)
+`endif  // RAM_ON_TOP
     );
+
+`ifdef RAM_ON_TOP
+    //------------------------------------------------------------------------------
+    // RAM interfaces
+    // D-Cache tag
+    tag_array_ext tag_array_ext (
+      .RW0_addr(tag_array_ext_RW0_addr),
+      .RW0_en(tag_array_ext_RW0_en),
+      .RW0_clk(tag_array_ext_RW0_clk),
+      .RW0_wmode(tag_array_ext_RW0_wmode),
+      .RW0_wdata(tag_array_ext_RW0_wdata),
+      .RW0_rdata(tag_array_ext_RW0_rdata),
+      .ram_clk(tag_array_ext_ram_clk),
+      .ram_csb0(tag_array_ext_ram_csb0),
+      .ram_web0(tag_array_ext_ram_web0),
+      .ram_wmask0(tag_array_ext_ram_wmask0),
+      .ram_addr0(tag_array_ext_ram_addr0),
+      .ram_din0(tag_array_ext_ram_din0),
+      .ram_dout0(tag_array_ext_ram_dout0),
+      .ram_csb1(tag_array_ext_ram_csb1),
+      .ram_addr1(tag_array_ext_ram_addr1)
+    );
+
+    // D-Cache data
+    data_arrays_0_ext data_arrays_0_ext (
+      .RW0_addr(data_arrays_0_ext_RW0_addr),
+      .RW0_en(data_arrays_0_ext_RW0_en),
+      .RW0_clk(data_arrays_0_ext_RW0_clk),
+      .RW0_wmode(data_arrays_0_ext_RW0_wmode),
+      .RW0_wdata(data_arrays_0_ext_RW0_wdata),
+      .RW0_rdata(data_arrays_0_ext_RW0_rdata),
+      .RW0_wmask(data_arrays_0_ext_RW0_wmask),
+      .ram_clk(data_arrays_0_ext_ram_clk),
+      .ram_csb0(data_arrays_0_ext_ram_csb0),
+      .ram_web0(data_arrays_0_ext_ram_web0),
+      .ram_wmask00(data_arrays_0_ext_ram_wmask00),
+      .ram_wmask01(data_arrays_0_ext_ram_wmask01),
+      .ram_addr00(data_arrays_0_ext_ram_addr00),
+      .ram_addr01(data_arrays_0_ext_ram_addr01),
+      .ram_din00(data_arrays_0_ext_ram_din00),
+      .ram_din01(data_arrays_0_ext_ram_din01),
+      .ram_dout00(data_arrays_0_ext_ram_dout00),
+      .ram_dout01(data_arrays_0_ext_ram_dout01),
+      .ram_csb1(data_arrays_0_ext_ram_csb1),
+      .ram_addr10(data_arrays_0_ext_ram_addr10),
+      .ram_addr11(data_arrays_0_ext_ram_addr11)
+    );
+
+    // I-Cache tag
+    tag_array_0_ext tag_array_0_ext (
+      .RW0_addr(tag_array_0_ext_RW0_addr),
+      .RW0_en(tag_array_0_ext_RW0_en),
+      .RW0_clk(tag_array_0_ext_RW0_clk),
+      .RW0_wmode(tag_array_0_ext_RW0_wmode),
+      .RW0_wdata(tag_array_0_ext_RW0_wdata),
+      .RW0_rdata(tag_array_0_ext_RW0_rdata),
+      .RW0_wmask(tag_array_0_ext_RW0_wmask),
+      .ram_clk(tag_array_0_ext_ram_clk),
+      .ram_csb0(tag_array_0_ext_ram_csb0),
+      .ram_web0(tag_array_0_ext_ram_web0),
+      .ram_wmask0(tag_array_0_ext_ram_wmask0),
+      .ram_addr0(tag_array_0_ext_ram_addr0),
+      .ram_din0(tag_array_0_ext_ram_din0),
+      .ram_dout0(tag_array_0_ext_ram_dout0),
+      .ram_csb1(tag_array_0_ext_ram_csb1),
+      .ram_addr1(tag_array_0_ext_ram_addr1)
+    );
+
+    // I-Cache data
+    data_arrays_0_0_ext data_arrays_0_0_ext (
+      .RW0_addr(data_arrays_0_0_ext_RW0_addr),
+      .RW0_en(data_arrays_0_0_ext_RW0_en),
+      .RW0_clk(data_arrays_0_0_ext_RW0_clk),
+      .RW0_wmode(data_arrays_0_0_ext_RW0_wmode),
+      .RW0_wdata(data_arrays_0_0_ext_RW0_wdata),
+      .RW0_rdata(data_arrays_0_0_ext_RW0_rdata),
+      .RW0_wmask(data_arrays_0_0_ext_RW0_wmask),
+      .ram_clk(data_arrays_0_0_ext_ram_clk),
+      .ram_csb0(data_arrays_0_0_ext_ram_csb0),
+      .ram_web0(data_arrays_0_0_ext_ram_web0),
+      .ram_wmask00(data_arrays_0_0_ext_ram_wmask00),
+      .ram_wmask01(data_arrays_0_0_ext_ram_wmask01),
+      .ram_wmask02(data_arrays_0_0_ext_ram_wmask02),
+      .ram_wmask03(data_arrays_0_0_ext_ram_wmask03),
+      .ram_addr00(data_arrays_0_0_ext_ram_addr00),
+      .ram_addr01(data_arrays_0_0_ext_ram_addr01),
+      .ram_addr02(data_arrays_0_0_ext_ram_addr02),
+      .ram_addr03(data_arrays_0_0_ext_ram_addr03),
+      .ram_din00(data_arrays_0_0_ext_ram_din00),
+      .ram_din01(data_arrays_0_0_ext_ram_din01),
+      .ram_din02(data_arrays_0_0_ext_ram_din02),
+      .ram_din03(data_arrays_0_0_ext_ram_din03),
+      .ram_dout00(data_arrays_0_0_ext_ram_dout00),
+      .ram_dout01(data_arrays_0_0_ext_ram_dout01),
+      .ram_dout02(data_arrays_0_0_ext_ram_dout02),
+      .ram_dout03(data_arrays_0_0_ext_ram_dout03),
+      .ram_csb1(data_arrays_0_0_ext_ram_csb1),
+      .ram_addr10(data_arrays_0_0_ext_ram_addr10),
+      .ram_addr11(data_arrays_0_0_ext_ram_addr11),
+      .ram_addr12(data_arrays_0_0_ext_ram_addr12),
+      .ram_addr13(data_arrays_0_0_ext_ram_addr13)
+    );
+`endif  // RAM_ON_TOP
 `endif  // MARMOT_EMPTY
 
 endmodule
