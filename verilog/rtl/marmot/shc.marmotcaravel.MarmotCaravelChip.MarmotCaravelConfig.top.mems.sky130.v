@@ -8,20 +8,20 @@
 module data_arrays_0_ext(
   input  [9:0]  RW0_addr,
   input         RW0_clk,
-  input  [31:0] RW0_wdata,
-  output [31:0] RW0_rdata,
+  input  [63:0] RW0_wdata,
+  output [63:0] RW0_rdata,
   input         RW0_en,
   input         RW0_wmode,
-  input  [3:0]  RW0_wmask
+  input  [7:0]  RW0_wmask
 );
 
   wire [1:0]  ram_clk;
   wire [1:0]  ram_csb0;
   wire [1:0]  ram_web0;
-  wire [3:0]  ram_wmask0[1:0];
+  wire [7:0]  ram_wmask0[1:0];
   wire [8:0]  ram_addr0[1:0];
-  wire [31:0] ram_din0[1:0];
-  wire [31:0] ram_dout0[1:0];
+  wire [63:0] ram_din0[1:0];
+  wire [63:0] ram_dout0[1:0];
   wire [1:0]  ram_csb1;
   wire [8:0]  ram_addr1[1:0];
   reg  [1:0]  ram_dout0_sel;
@@ -47,7 +47,7 @@ module data_arrays_0_ext(
     assign ram_addr1[i]  = 9'h1ff;
   end
 
-    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram0 (
+    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram0l (
   `ifdef USE_POWER_PINS
       .vccd1  (vccd1),
       .vssd1  (vssd1),
@@ -55,10 +55,10 @@ module data_arrays_0_ext(
       .clk0   (ram_clk[0]),     // clock 0
       .csb0   (ram_csb0[0]),    // active low chip select 0
       .web0   (ram_web0[0]),    // active low write control 0
-      .wmask0 (ram_wmask0[0]),  // write mask 0
+      .wmask0 (ram_wmask0[0][3:0]), // write mask 0
       .addr0  (ram_addr0[0]),   // address 0
-      .din0   (ram_din0[0]),    // write data 0
-      .dout0  (ram_dout0[0]),   // read data 0
+      .din0   (ram_din0[0][31:0]), // write data 0
+      .dout0  (ram_dout0[0][31:0]), // read data 0
       .clk1   (ram_clk[0]),     // clock 1
       .csb1   (ram_csb1[0]),    // active low chip select 1
       .addr1  (ram_addr1[0]),   // address 1
@@ -67,7 +67,27 @@ module data_arrays_0_ext(
       /* verilator lint_on PINCONNECTEMPTY */
     );  
 
-    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram1 (
+    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram0h (
+  `ifdef USE_POWER_PINS
+      .vccd1  (vccd1),
+      .vssd1  (vssd1),
+  `endif
+      .clk0   (ram_clk[0]),     // clock 0
+      .csb0   (ram_csb0[0]),    // active low chip select 0
+      .web0   (ram_web0[0]),    // active low write control 0
+      .wmask0 (ram_wmask0[0][7:4]), // write mask 0
+      .addr0  (ram_addr0[0]),   // address 0
+      .din0   (ram_din0[0][63:32]), // write data 0
+      .dout0  (ram_dout0[0][63:32]), // read data 0
+      .clk1   (ram_clk[0]),     // clock 1
+      .csb1   (ram_csb1[0]),    // active low chip select 1
+      .addr1  (ram_addr1[0]),   // address 1
+      /* verilator lint_off PINCONNECTEMPTY */
+      .dout1  ()                // read data 1
+      /* verilator lint_on PINCONNECTEMPTY */
+    );  
+
+    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram1l (
   `ifdef USE_POWER_PINS
       .vccd1  (vccd1),
       .vssd1  (vssd1),
@@ -75,10 +95,30 @@ module data_arrays_0_ext(
       .clk0   (ram_clk[1]),     // clock 0
       .csb0   (ram_csb0[1]),    // active low chip select 0
       .web0   (ram_web0[1]),    // active low write control 0
-      .wmask0 (ram_wmask0[1]),  // write mask 0
+      .wmask0 (ram_wmask0[1][3:0]), // write mask 0
       .addr0  (ram_addr0[1]),   // address 0
-      .din0   (ram_din0[1]),    // write data 0
-      .dout0  (ram_dout0[1]),   // read data 0
+      .din0   (ram_din0[1][31:0]), // write data 0
+      .dout0  (ram_dout0[1][31:0]), // read data 0
+      .clk1   (ram_clk[1]),     // clock 1
+      .csb1   (ram_csb1[1]),    // active low chip select 1
+      .addr1  (ram_addr1[1]),   // address 1
+      /* verilator lint_off PINCONNECTEMPTY */
+      .dout1  ()                // read data 1
+      /* verilator lint_on PINCONNECTEMPTY */
+    );  
+
+    sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(`VERBOSE)) ram1h (
+  `ifdef USE_POWER_PINS
+      .vccd1  (vccd1),
+      .vssd1  (vssd1),
+  `endif
+      .clk0   (ram_clk[1]),     // clock 0
+      .csb0   (ram_csb0[1]),    // active low chip select 0
+      .web0   (ram_web0[1]),    // active low write control 0
+      .wmask0 (ram_wmask0[1][7:4]), // write mask 0
+      .addr0  (ram_addr0[1]),   // address 0
+      .din0   (ram_din0[1][63:32]), // write data 0
+      .dout0  (ram_dout0[1][63:32]), // read data 0
       .clk1   (ram_clk[1]),     // clock 1
       .csb1   (ram_csb1[1]),    // active low chip select 1
       .addr1  (ram_addr1[1]),   // address 1
@@ -94,27 +134,28 @@ endmodule
 module tag_array_ext(
   input  [5:0]  RW0_addr,
   input         RW0_clk,
-  input  [20:0] RW0_wdata,
-  output [20:0] RW0_rdata,
+  input  [41:0] RW0_wdata,
+  output [41:0] RW0_rdata,
   input         RW0_en,
-  input         RW0_wmode
+  input         RW0_wmode,
+  input  [1:0]  RW0_wmask
 );
 
   wire        ram_clk    = RW0_clk;
   wire        ram_csb0   = ~RW0_en;
   wire        ram_web0   = ~RW0_wmode;
-  wire [3:0]  ram_wmask0 = {4{RW0_wmode}};
+  wire [7:0]  ram_wmask0 = {{4{RW0_wmask[1]}}, {4{RW0_wmask[0]}}};
   wire [7:0]  ram_addr0  = {2'b00, RW0_addr};
-  wire [31:0] ram_din0   = {11'd0, RW0_wdata};
-  wire [31:0] ram_dout0;
+  wire [63:0] ram_din0   = {{11'd0, RW0_wdata[41:21]}, {11'd0, RW0_wdata[20:0]}};
+  wire [63:0] ram_dout0;
   wire        ram_csb1   = 1'b1;
   wire [7:0]  ram_addr1  = 8'hff;
 
   // RAM read data
-  assign RW0_rdata = ram_dout0[20:0];
+  assign RW0_rdata = {ram_dout0[52:32], ram_dout0[20:0]};
 
   // RAM macros
-  sky130_sram_1kbyte_1rw1r_32x256_8 #(.VERBOSE(`VERBOSE)) ram (
+  sky130_sram_1kbyte_1rw1r_32x256_8 #(.VERBOSE(`VERBOSE)) raml (
 `ifdef USE_POWER_PINS
     .vccd1  (vccd1),
     .vssd1  (vssd1),
@@ -122,10 +163,30 @@ module tag_array_ext(
     .clk0   (ram_clk),     // clock 0
     .csb0   (ram_csb0),    // active low chip select 0
     .web0   (ram_web0),    // active low write control 0
-    .wmask0 (ram_wmask0),  // write mask 0
+    .wmask0 (ram_wmask0[3:0]), // write mask 0
     .addr0  (ram_addr0),   // address 0
-    .din0   (ram_din0),    // write data 0
-    .dout0  (ram_dout0),   // read data 0
+    .din0   (ram_din0[31:0]), // write data 0
+    .dout0  (ram_dout0[31:0]), // read data 0
+    .clk1   (ram_clk),     // clock 1
+    .csb1   (ram_csb1),    // active low chip select 1
+    .addr1  (ram_addr1),   // address 1
+    /* verilator lint_off PINCONNECTEMPTY */
+    .dout1  ()             // read data 1
+    /* verilator lint_on PINCONNECTEMPTY */
+  );  
+
+  sky130_sram_1kbyte_1rw1r_32x256_8 #(.VERBOSE(`VERBOSE)) ramh (
+`ifdef USE_POWER_PINS
+    .vccd1  (vccd1),
+    .vssd1  (vssd1),
+`endif
+    .clk0   (ram_clk),     // clock 0
+    .csb0   (ram_csb0),    // active low chip select 0
+    .web0   (ram_web0),    // active low write control 0
+    .wmask0 (ram_wmask0[7:4]), // write mask 0
+    .addr0  (ram_addr0),   // address 0
+    .din0   (ram_din0[63:32]), // write data 0
+    .dout0  (ram_dout0[63:32]), // read data 0
     .clk1   (ram_clk),     // clock 1
     .csb1   (ram_csb1),    // active low chip select 1
     .addr1  (ram_addr1),   // address 1
