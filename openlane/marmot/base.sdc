@@ -7,9 +7,15 @@ set TCK_port io_in[4]
 # create clock
 create_clock [get_ports wb_clk_i] -name wb_clk_i -period $::env(CLOCK_PERIOD)
 
+# For RTL
+#create_generated_clock -name slow_clock -add \
+#  -source [get_ports wb_clk_i] -master_clock [get_clocks wb_clk_i] -divide_by 4 \
+#  -comment {AON clk} [get_nets \MarmotCaravelChip.clockToggleReg ]
+
+# For Gate
 create_generated_clock -name slow_clock -add \
   -source [get_ports wb_clk_i] -master_clock [get_clocks wb_clk_i] -divide_by 4 \
-  -comment {AON clk} [get_nets \MarmotCaravelChip.clockToggleReg ]
+  -comment {AON clk} [get_nets MarmotCaravelChip_dut_sys_aon_1_io_rtc]
 
 create_clock [get_ports $TCK_port] -name jtag_TCK -period 100.0
 

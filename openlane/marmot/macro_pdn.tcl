@@ -1,18 +1,18 @@
 # Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram0l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram0h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram1l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram1h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram2l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram2h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram3l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.data_arrays_0.data_arrays_0_0_ext.ram3h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.tag_array.tag_array_0_ext.raml vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.frontend.icache.tag_array.tag_array_0_ext.ramh vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram0l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram1l vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram0h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram1h vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.tag_array.tag_array_ext.raml vccd1 vssd1 vccd1 vssd1,\
-  MarmotCaravelChip.dut.sys.tile_prci_domain.tile_reset_domain.tile.dcache.tag_array.tag_array_ext.ramh vccd1 vssd1 vccd1 vssd1"
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram0l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram0h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram1l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram1h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram2l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram2h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram3l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_data_arrays_0_data_arrays_0_0_ext_ram3h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_tag_array_tag_array_0_ext_raml vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_frontend_icache_tag_array_tag_array_0_ext_ramh vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_data_data_arrays_0_data_arrays_0_ext_ram0l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_data_data_arrays_0_data_arrays_0_ext_ram1l vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_data_data_arrays_0_data_arrays_0_ext_ram0h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_data_data_arrays_0_data_arrays_0_ext_ram1h vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_tag_array_tag_array_ext_raml vccd1 vssd1 vccd1 vssd1,\
+  MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_dcache_tag_array_tag_array_ext_ramh vccd1 vssd1 vccd1 vssd1"

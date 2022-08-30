@@ -27,10 +27,13 @@ set ::env(FP_PDN_ENABLE_RAILS) 1
 
 set ::env(CLOCK_PORT) "wb_clk_i"
 
-set ::env(CLOCK_PERIOD) "40"
+set ::env(CLOCK_PERIOD) "20"
 
 set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 2880 3480"
+
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN)  0.3
+set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.3
 
 #set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
 set ::env(DIODE_INSERTION_STRATEGY) 5
@@ -50,8 +53,15 @@ set ::env(VDD_PIN) "vccd1"
 set ::env(GND_PIN) "vssd1"
 set ::env(PL_TARGET_DENSITY) 0.40
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
-set ::env(DECAP_CELL) {sky130_ef_sc_hd__decap_*  sky130_fd_sc_hd__decap_*}
-#set ::env(FILL_CELL) {sky130_fd_sc_hd__fill_}
+set ::env(DECAP_CELL) "\
+	sky130_fd_sc_hd__decap_3 \
+	sky130_fd_sc_hd__decap_4 \
+	sky130_fd_sc_hd__decap_6 \
+	sky130_fd_sc_hd__decap_8 \
+	sky130_ef_sc_hd__decap_12"
+set ::env(FILL_CELL) "\
+  sky130_ef_sc_hd__fill* \
+  sky130_fd_sc_hd__fill*"
 #set ::env(CTS_TARGET_SKEW) 200
 #set ::env(CTS_SINK_CLUSTERING_SIZE) 100
 #set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 1000
@@ -75,10 +85,10 @@ set ::env(RUN_MAGIC_DRC) 0
 set ::env(SYNTH_DEFINES) "SYNTHESIS"
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
-set ::env(VERILOG_INCLUDE_DIRS) [glob $script_dir/../../../verilog/rtl/marmot]
+set ::env(VERILOG_INCLUDE_DIRS) [glob $script_dir/../../../verilog/rtl/marmot_gl]
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	[glob $script_dir/../../../verilog/rtl/marmot/*.v]"
+	[glob $script_dir/../../../verilog/rtl/marmot_gl/*.v]"
 
 ## SDC
 set ::env(IO_PCT)     0.2
