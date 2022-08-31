@@ -19,67 +19,70 @@ source $::env(CARAVEL_ROOT)/openlane/user_project_wrapper/default_wrapper_cfgs.t
 set ::env(PDK) $::env(PDK)
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 
-
 set ::env(DESIGN_NAME) Marmot
-
-set ::env(FP_PDN_CHECK_NODES) 0
-set ::env(FP_PDN_ENABLE_RAILS) 1 
-
 set ::env(CLOCK_PORT) "wb_clk_i"
+set ::env(CLOCK_PERIOD) "15"
 
-set ::env(CLOCK_PERIOD) "20"
+set ::env(DESIGN_IS_CORE) 1
 
 set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 2880 3480"
 
-set ::env(PL_RESIZER_HOLD_SLACK_MARGIN)  0.3
-set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.3
-
-#set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
-set ::env(DIODE_INSERTION_STRATEGY) 5
-
-set ::env(MAGIC_WRITE_FULL_LEF) 0
-
-set ::env(SYNTH_FLAT_TOP) 1
-#set ::env(SYNTH_NO_FLAT) 1
-set ::env(CLOCK_TREE_SYNTH) 1
-set ::env(DESIGN_IS_CORE) 1
+set ::env(FP_PDN_ENABLE_RAILS) 1 
 set ::env(FP_PDN_CORE_RING) 0
-set ::env(STA_REPORT_POWER) 0
-set ::env(SYNTH_USE_PG_PINS_DEFINES) "USE_POWER_PINS"
+set ::env(FP_PDN_CHECK_NODES) 1
+set ::env(FP_PDN_IRDROP) 1
+set ::env(FP_IO_VLENGTH) 1
+set ::env(FP_IO_HLENGTH) 1
+
 set ::env(VDD_NETS) {vccd1}
 set ::env(GND_NETS) {vssd1}
 set ::env(VDD_PIN) "vccd1"
 set ::env(GND_PIN) "vssd1"
-set ::env(PL_TARGET_DENSITY) 0.40
+
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
+set ::env(PL_TARGET_DENSITY) 0.30
+set ::env(PL_RESIZER_HOLD_SLACK_MARGIN)  0.3
+set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.3
+
+set ::env(SYNTH_FLAT_TOP) 1
+set ::env(SYNTH_NO_FLAT) 0
+set ::env(SYNTH_USE_PG_PINS_DEFINES) "USE_POWER_PINS"
+
+set ::env(CLOCK_TREE_SYNTH) 1
+set ::env(CTS_TARGET_SKEW) 20
+set ::env(CTS_TOLERANCE) 30
+#set ::env(CTS_SINK_CLUSTERING_SIZE) 100
+#set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 1000
+
+set ::env(STA_REPORT_POWER) 1
+set ::env(STA_PRE_CTS) 1
+
+set ::env(DIODE_INSERTION_STRATEGY) 5
+
 set ::env(DECAP_CELL) "\
 	sky130_fd_sc_hd__decap_3 \
 	sky130_fd_sc_hd__decap_4 \
 	sky130_fd_sc_hd__decap_6 \
 	sky130_fd_sc_hd__decap_8 \
 	sky130_ef_sc_hd__decap_12"
+
 set ::env(FILL_CELL) "\
   sky130_ef_sc_hd__fill* \
   sky130_fd_sc_hd__fill*"
-#set ::env(CTS_TARGET_SKEW) 200
-#set ::env(CTS_SINK_CLUSTERING_SIZE) 100
-#set ::env(CTS_SINK_CLUSTERING_MAX_DIAMETER) 1000
-set ::env(FP_IO_VLENGTH) 1
-set ::env(FP_IO_HLENGTH) 1
+
 set ::env(ROUTING_CORES) 4
 set ::env(GLB_RT_ALLOW_CONGESTION) 1
 #set ::env(GLB_RT_MAXLAYER) 5
 set ::env(RT_MAX_LAYER) {met4}
-set ::env(FP_PDN_CHECK_NODES) 0
-set ::env(RUN_KLAYOUT_XOR) 0
-set ::env(KLAYOUT_XOR_GDS) 0
-set ::env(KLAYOUT_XOR_XML) 0
-set ::env(FP_PDN_IRDROP) 0
-set ::env(RUN_CVC) 0
-set ::env(RUN_MAGIC_DRC) 0
-#set ::env(TAKE_LAYOUT_SCROT) 1
 
+set ::env(RUN_CVC) 0
+set ::env(RUN_KLAYOUT_XOR) 0
+set ::env(RUN_KLAYOUT_DRC) 0
+set ::env(RUN_MAGIC_DRC) 0
+set ::env(MAGIC_DRC_USE_GDS) 0
+set ::env(QUIT_ON_MAGIC_DRC) 0
+set ::env(MAGIC_WRITE_FULL_LEF) 0
 
 ## Source Verilog Files
 set ::env(SYNTH_DEFINES) "SYNTHESIS"
@@ -94,7 +97,6 @@ set ::env(VERILOG_FILES) "\
 set ::env(IO_PCT)     0.2
 set ::env(IO_PCT_RAM) 0.3
 set ::env(BASE_SDC_FILE) $script_dir/../../../openlane/marmot/base.sdc
-
 
 ## Internal Macros
 ### Black-box verilog and views
