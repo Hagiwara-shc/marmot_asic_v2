@@ -2,6 +2,14 @@
   `define VERBOSE 0
 `endif
 
+`ifdef USE_POWER_PINS
+  `define USE_POWER_PINS_WAS_DEFINED
+`endif
+
+`ifdef SIM
+  `undef USE_POWER_PINS
+`endif
+
 //-----------------------------------------------------------------------
 // D-Cache Data RAM
 //-----------------------------------------------------------------------
@@ -471,3 +479,7 @@ module data_arrays_0_0_ext(
       /* verilator lint_on PINCONNECTEMPTY */
     );  
 endmodule
+
+`ifdef USE_POWER_PINS_WAS_DEFINED
+  `define USE_POWER_PINS
+`endif

@@ -16,5 +16,7 @@ else if ($sim == GL_SDF) then
   set target = verify-${prog}-gl-sdf
 endif
 
+rm -f verilog/dv/$prog/$prog.vcd
+
 make SIM=$sim $target |& egrep -v '\[0\] pc=' | spike-dasm | tee sim.log
 
