@@ -62,7 +62,7 @@ set ::env(PDN_CFG) $script_dir/pdn_cfg.tcl
 set ::env(VDD_PIN) {vccd1}
 set ::env(GND_PIN) {vssd1}
 set ::env(FP_PDN_HPITCH) 180
-set ::env(FP_PDN_HOFFSET) 17
+set ::env(FP_PDN_HOFFSET) 45
 
 ## Internal Macros
 ### Macro PDN Connections
