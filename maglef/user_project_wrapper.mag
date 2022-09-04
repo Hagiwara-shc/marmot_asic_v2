@@ -1,7 +1,7 @@
 magic
 tech sky130B
 magscale 1 2
-timestamp 1662256391
+timestamp 1662291656
 << obsli1 >>
 rect 5104 6159 578816 697617
 << obsm1 >>
@@ -2896,8 +2896,8 @@ port 645 nsew signal input
 string FIXED_BBOX 0 0 584000 704000
 string LEFclass BLOCK
 string LEFview TRUE
-string GDS_END 387209306
-string GDS_FILE /home/shc/Development/efabless/marmot_asic_v2/openlane/user_project_wrapper/runs/22_09_04_10_41/results/signoff/user_project_wrapper.magic.gds
-string GDS_START 386430228
+string GDS_END 387803014
+string GDS_FILE /home/shc/Development/efabless/marmot_asic_v2/openlane/user_project_wrapper/runs/22_09_04_20_29/results/signoff/user_project_wrapper.magic.gds
+string GDS_START 387023936
 << end >>
 
