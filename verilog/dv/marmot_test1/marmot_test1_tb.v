@@ -55,40 +55,41 @@ module testbench;
   wire        reset = `MARMOT.wb_rst_i;
 
 `ifdef SIM
-  wire [31:0] PC    = `CORE.coreMonitorBundle_pc;
+  wire [31:0] PC = `CORE.coreMonitorBundle_pc;
 `else
-  wire [31:0] PC    = {`MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[31] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[30] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[29] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[28] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[27] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[26] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[25] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[24] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[23] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[22] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[21] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[20] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[19] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[18] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[17] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[16] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[15] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[14] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[13] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[12] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[11] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[10] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[9] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[8] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[7] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[6] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[5] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[4] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[3] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[2] ,
-                       `MARMOT.\MarmotCaravelChip.MarmotCaravelPlatform.sys.tile.core.coreMonitorBundle_pc[1] ,
-                       1'b0};
+  wire [31:0] PC = {
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[31] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[30] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[29] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[28] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[27] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[26] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[25] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[24] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[23] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[22] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[21] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[20] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[19] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[18] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[17] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[16] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[15] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[14] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[13] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[12] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[11] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[10] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[9] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[8] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[7] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[6] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[5] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[4] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[3] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[2] ,
+    `MARMOT.\MarmotCaravelChip_dut_sys_tile_prci_domain_tile_reset_domain_tile_core_coreMonitorBundle_pc[1] ,
+    1'b0};
 `endif
 
 //-------------------------------------------------------------------------------
@@ -121,10 +122,10 @@ module testbench;
 //-------------------------------------------------------------------------------
 // Waveform
   initial begin
-    `ifdef WAVEFORM
-      $dumpfile("marmot_test1.vcd");
+    if ($test$plusargs("waveform")) begin
+      $dumpfile("wave.vcd");
       $dumpvars(0, `TB);
-    `endif
+    end 
   end
 
 //-------------------------------------------------------------------------------
@@ -142,11 +143,6 @@ module testbench;
     $sdf_annotate("../../../mgmt_core_wrapper/sdf/mgmt_core_wrapper.sdf", `CARAVEL.soc);
     $sdf_annotate("../../../sdf/user_project_wrapper.sdf.gz", `USER_PROJECT_WRAPPER);
     $sdf_annotate("../../../sdf/Marmot.sdf.gz", `MARMOT);
-    $sdf_annotate("../../../sdf/clk_skew_adjust.sdf.gz", `USER_PROJECT_WRAPPER.u_clk_skew_adjust_0);
-    $sdf_annotate("../../../sdf/clk_skew_adjust.sdf.gz", `USER_PROJECT_WRAPPER.u_clk_skew_adjust_1);
-    $sdf_annotate("../../../sdf/clk_skew_adjust.sdf.gz", `USER_PROJECT_WRAPPER.u_clk_skew_adjust_2);
-    $sdf_annotate("../../../sdf/clk_skew_adjust.sdf.gz", `USER_PROJECT_WRAPPER.u_clk_skew_adjust_3);
-    $sdf_annotate("../../../sdf/clk_skew_adjust.sdf.gz", `USER_PROJECT_WRAPPER.u_clk_skew_adjust_4);
   end
 `endif
 
@@ -166,18 +162,18 @@ module testbench;
   integer exception_pc_count;
 
   always @ (posedge clock) begin
-  //if ($test$plusargs("pc_monitor")) begin
+    if ($test$plusargs("pc_monitor")) begin
       if (cycle % 1000 == 0) begin
         $fwrite(32'h80000002, "[%t] %10d pc=%08x\n", $time, cycle, PC);
       end
-  //end
+    end
 
     // Finish on PC=x
-    if (^PC === 1'bx) begin
-      $display("[%t] PC=xxxxxxxx", $time);
-      repeat (50) @(posedge clock);
-      $finish;
-    end
+    //if (^PC === 1'bx) begin
+    //  $display("[%t] PC=xxxxxxxx", $time);
+    //  repeat (50) @(posedge clock);
+    //  $finish;
+    //end
 
     // Finish on exception
     if (PC == 32'h00000000 || PC == 32'h00000002) begin
@@ -322,10 +318,9 @@ MX25U3235F #(.Init_File("spi_flash.mem")) spi_flash
 );
 
 //-------------------------------------------------------------------------------
-// SPI RAM model for Marmot
-`ifdef SIMULATOR_QUESTA
 // SPI RAM model (APM APS6404L-3SQN_SQPI_PSRAM)
-sqpi_model #(.VeriOutStr(1), .STOP_ON_ERROR(1)) spi_ram
+`ifdef SIMULATOR_QUESTA
+sqpi_model #(.VeriOutStr(1), .STOP_ON_ERROR(0)) spi_ram
 (
     .SCK_i  (mprj_io[io_spi2_sck]),
     .nCE_i  (mprj_io[io_spi2_csb]),

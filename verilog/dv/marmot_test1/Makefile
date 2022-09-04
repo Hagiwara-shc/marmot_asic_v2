@@ -14,8 +14,27 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+# RTL/GL/GL_SDF
+export SIM ?= RTL
 
- 
+# Questa/Icarus
+#SIMULATOR ?= Questa
+#DOOPT = log -r /testbench/* ;
+
+SIMULATOR ?= Icarus
+
+export TARGET_PATH = $(MARMOT_ROOT)
+export DESIGNS = $(TARGET_PATH)
+export CARAVEL_ROOT = $(TARGET_PATH)/caravel
+export MCW_ROOT = $(TARGET_PATH)/mgmt_core_wrapper
+export CORE_VERILOG_PATH = $(MCW_ROOT)/verilog
+#export PDK_ROOT = $(PDK_ROOT)
+#export PDK = $(PDK)
+export TOOLS = $(RISCV)
+export GCC_PREFIX = riscv64-unknown-linux-gnu
+
+TESTCASE_DIR = $(HOME)/Development/RISC-V/chipyard/vlsi/sim/testcase
+
 PWDD := $(shell pwd)
 BLOCKS := $(shell basename $(PWDD))
 
@@ -23,10 +42,13 @@ BLOCKS := $(shell basename $(PWDD))
 
 CONFIG = caravel_user_project
 
-
 include $(MCW_ROOT)/verilog/dv/make/env.makefile
 include $(MCW_ROOT)/verilog/dv/make/var.makefile
 include $(MCW_ROOT)/verilog/dv/make/cpu.makefile
-include $(MCW_ROOT)/verilog/dv/make/sim.makefile
+include ../make/sim.makefile
 
+setup:
+	echo "// $(TESTCASE_DIR)/hello/spi_flash.mem" > spi_flash.mem
+	cat $(TESTCASE_DIR)/hello/spi_flash.mem >> spi_flash.mem
+	cp $(TESTCASE_DIR)/hello/spi_flash.lis spi_flash.lis
 
