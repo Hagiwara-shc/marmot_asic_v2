@@ -70,7 +70,8 @@ hex:  ${BLOCKS:=.hex}
 #------------------------------------
 ifeq ($(SIMULATOR),Icarus)
 
-COMPOPT := -g2005-sv
+COMPOPT := -g2005-sv $(USER_COMPOPT)
+SIMOPT := $(USER_SIMOPT)
 
 %.vvp: %_tb.v %.hex
 
@@ -129,10 +130,10 @@ sim_icarus: ${BLOCKS:=.vvp}
 else
 
 COMPOPT := -64 -work work -sv -sv12compat -mfcu -suppress vlog-2892,vlog-2388,vlog-2248 +acc=lprn
-COMPOPT += ../vip/APM_APS6404L-3SQN_SQPI_PSRAM_model_v2.9_encrypt.vp_modelsim
+COMPOPT += ../vip/APM_APS6404L-3SQN_SQPI_PSRAM_model_v2.9_encrypt.vp_modelsim $(USER_COMPOPT)
 SIMOPT := -64 -c -suppress vsim-3009 -debugDB $(USER_SIMOPT)
 
-sim_questa:
+sim_questa: hex
 ## RTL
 ifeq ($(SIM),RTL)
 	rm -rf work

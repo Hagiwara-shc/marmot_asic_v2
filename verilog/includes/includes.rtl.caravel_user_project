@@ -1,4 +1,4 @@
-+define+PRINTF_COND=1
+//+define+PRINTF_COND=1
 +define+STOP_COND=0
 +define+RANDOMIZE_MEM_INIT
 +define+RANDOMIZE_REG_INIT
