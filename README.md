@@ -1,9 +1,15 @@
 # Marmot RISC-V SoC
 
+  
+
 ## A Customizable RISC-V Microcomputer
+
 A custom microcomputer design is useful when off-the-shelf general-purpose microcontrollers fail to meet the system needs. The rocket SoC generator automatically generate an SoC. It circumvents labor-intensive, error-prone, top-level SoC design.
 
+  
+
 ## SoC Customization Flow
+
 The Rocket SoC Generator and Caravel SoC Template are reused to create a twin (not identical) RISC-V SoC consisting of one Rocket RISC-V and one Caravel RISC-V. The objectives here is to save hours on design verification and reduce power consumption rather than saving die area or chip cost.
 
   ```mermaid
@@ -23,7 +29,9 @@ I[Caravel EVB] --Breadboarding-->H{User system}
 J[KiCad]--Gerber and BOM-->H
 ```
 
+
 ##  Implementing low power operations
+
 The following shows a scheme to manage clock, reset, power and low power state.
 
 ```mermaid
@@ -51,6 +59,7 @@ Rocket SoC->>Caravel SoC: "Go full power"
 Caravel SoC->>Harness: Configure Clock, DLL via System control
 Caravel SoC->>Rocket SoC: "Went full power".
 ```
+
 ## Features
 |Unit |Description
 |-------|-------|
@@ -152,11 +161,11 @@ Base|Top|Attribute|Unit|Description
 
 [Marmot RISC-V ASIC for Motor Control (Efabless MPW-7 project)](https://platform.efabless.com/projects/1288)
 
-[Chipyard Framework](https://github.com/ucb-bar/chipyard)
-
 [Freedom E310-G002 Manual](https://sifive.cdn.prismic.io/sifive/b56b304f-cd2d-421b-9c14-6b35c33f172e_fe310-g002-manual-v1p4.pdf)
 
-Krste Asanović, Rimas Avižienis, Jonathan Bachrach, Scott Beamer, David Biancolin, Christopher Celio, Henry Cook, Palmer Dabbelt, John Hauser, Adam Izraelevitz, Sagar Karandikar, Benjamin Keller, Donggyu Kim, John Koenig, Yunsup Lee, Eric Love, Martin Maas, Albert Magyar, Howard Mao, Miquel Moreto, Albert Ou, David Patterson, Brian Richards, Colin Schmidt, Stephen Twigg, Huy Vo, and Andrew Waterman, _[The Rocket Chip Generator](http://www.eecs.berkeley.edu/Pubs/TechRpts/2016/EECS-2016-17.html)_, Technical Report UCB/EECS-2016-17, EECS Department, University of California, Berkeley, April 2016
+[Chipyard Framework](https://github.com/ucb-bar/chipyard)
+
+[The Rocket Chip Generator](http://www.eecs.berkeley.edu/Pubs/TechRpts/2016/EECS-2016-17.html)
 
 [Efabless Caravel Architecture](https://caravel-harness.readthedocs.io/en/latest/getting-started.html)
 
