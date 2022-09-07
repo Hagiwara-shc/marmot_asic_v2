@@ -66,6 +66,7 @@ Caravel SoC->>Rocket SoC: "Went full power".
 |RISC-V CPU|RV32IMAC, M/S/U-mode (Rocket)
 |I-Cache|Instruction cache: 16 KiB<br>(Up to 8 KiB can be configured as Instruction Tightly Integrated Memory (ITIM))
 |D-Cache|Data cache: 8 KiB
+|GPIO  |General Purpose Input/Output Controller
 |QSPI0 |Quad Serial Peripheral Interface (QSPI) for (Q)SPI-Flash memory (XIP supported)
 |QSPI1 |Quad Serial Peripheral Interface (QSPI) for (Q)SPI-Peripherals (CS x2)
 |QSPI2 |Quad Serial Peripheral Interface (QSPI) for (Q)SPI-PSRAM (XIP supported)
