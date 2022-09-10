@@ -3,9 +3,9 @@
 +define+RANDOMIZE_DELAY=1
 +define+UART_HIGH_SPEED
 
-// Caravel user project includes	     
--v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/gl/Marmot.v     
+// Caravel user project include
+-v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v
+-v $(USER_PROJECT_VERILOG)/gl/Marmot.v.gz
 +incdir+$(USER_PROJECT_VERILOG)/gl
 
 -v $(USER_PROJECT_VERILOG)/lib/sky130_sram_1kbyte_1rw1r_32x256_8.v
