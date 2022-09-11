@@ -5,7 +5,7 @@
 
 // Caravel user project include
 -v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v
--v $(USER_PROJECT_VERILOG)/gl/Marmot.v.gz
+-v $(USER_PROJECT_VERILOG)/gl/Marmot.v
 +incdir+$(USER_PROJECT_VERILOG)/gl
 
 -v $(USER_PROJECT_VERILOG)/lib/sky130_sram_1kbyte_1rw1r_32x256_8.v
