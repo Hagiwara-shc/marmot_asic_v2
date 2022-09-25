@@ -26,3 +26,5 @@
 +incdir+$(USER_PROJECT_VERILOG)/dv/vip/uart
 -v $(USER_PROJECT_VERILOG)/dv/vip/uart/uart_tb.v
 
+// JTAG driver
+-v $(USER_PROJECT_VERILOG)/dv/vip/jtag_driver.v
