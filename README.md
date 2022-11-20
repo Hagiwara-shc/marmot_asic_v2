@@ -6,7 +6,7 @@
 
 A custom microcomputer design is useful when off-the-shelf general-purpose microcontrollers fail to meet the system needs. The rocket SoC generator automatically generate an SoC. It circumvents labor-intensive, error-prone, top-level SoC design.
 
-  
+
 
 ## SoC Customization Flow
 
